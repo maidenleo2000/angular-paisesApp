@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { PaisService } from '../../services/pais.service';
 
 @Component({
   selector: 'app-por-pais',
@@ -6,11 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class PorPaisComponent implements OnInit {
+export class PorPaisComponent {
 
-  constructor() { }
+  termino:string = 'Honduras'
 
-  ngOnInit(): void {
+  constructor(private PaisService: PaisService) { }
+
+  buscar(){
+    console.log(this.termino);
+    this.PaisService.buscarPais(this.termino).subscribe(resp =>{console.log(resp)});
+    //Para que se ejecute un observable tiene que tener como mínimo un suscribe, sino no se ejecuta.
   }
 
 }

@@ -4,13 +4,8 @@
 <div class="row">
 
     <div class="col">
-        <form (ngSubmit)="buscar()" autocomplete="off">
-            <input type="text"
-            name="termino"
-            [(ngModel)]="termino"
-            placeholder="Buscar país..."
-            class="form-control">
-        </form>
+        <app-pais-input (onEnter)="buscar($event)" (onDebounce)="sugerencias($event)" place = 'Buscar por pais...'></app-pais-input>
+        <!-- Con los parentesis estoy escuchando y entre los parentesis va el nombre del evento que escucho, que se definio en pais-input.component.ts -->
     </div>
 
 </div>
@@ -22,25 +17,7 @@
 
 <div *ngIf="!hayError" class="row">
     <div class="col">
-        <table *ngIf="paises.length>0" class="table table-hover">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Bandera</th>
-                    <th>Nombre</th>
-                    <th>Población</th>
-                    <th></th>
-                </tr>                
-            </thead>
-            <tbody>
-                <tr *ngFor="let pais of paises; let i = index">
-                    <td>{{i+1}}</td>
-                    <td><img class="small-flag" [src]=pais.flags.png alt=""></td>
-                    <td>{{pais.name.common}}</td>
-                    <td>{{pais.population | number}}</td>
-                    <td><a [routerLink]="['/pais', pais.cca2]">Ver...</a></td>
-                </tr>
-            </tbody>
-        </table>
+        <app-pais-tabla [paises]="paises"></app-pais-tabla>
+        <!-- aca es donde le paso los datos al input, sino no funciona. Con el input lo que hago es tomar datos de otro lugar, un pasa-mano. Los datos se procesan en por-pais.component.ts y se envia ACA al input de app-pais.tabla. Se usan corchetes para pasar datos, y parentesis para escuchar datos-->
     </div>
 </div>

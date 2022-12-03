@@ -1,1 +1,23 @@
-<p>por-capital works!</p>
+<h1>Por Capital</h1>
+<hr>
+
+<div class="row">
+
+    <div class="col">
+        <app-pais-input (onEnter)="buscar($event)" (onDebounce)="sugerencias($event)" place = 'Buscar por capital...'></app-pais-input>
+        <!-- Con los parentesis estoy escuchando y entre los parentesis va el nombre del evento que escucho, que se definio en pais-input.component.ts -->
+    </div>
+
+</div>
+
+<hr>
+<div *ngIf="hayError" class="alert alert-danger">
+    No se encontró nada con el término {{this.termino}}
+</div>
+
+<div *ngIf="!hayError" class="row">
+    <div class="col">
+        <app-pais-tabla [paises]="capitales"></app-pais-tabla>
+        <!-- aca es donde le paso los datos al input, sino no funciona. Con el input lo que hago es tomar datos de otro lugar, un pasa-mano. Los datos se procesan en por-pais.component.ts y se envia ACA al input de app-pais.tabla. Se usan corchetes para pasar datos, y parentesis para escuchar datos-->
+    </div>
+</div>

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Pais } from '../../interfaces/pais.interface';
+import { PaisService } from '../../services/pais.service';
 
 @Component({
   selector: 'app-por-capital',
@@ -6,11 +8,43 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class PorCapitalComponent implements OnInit {
+export class PorCapitalComponent {
 
-  constructor() { }
+  termino:string = '';
+  hayError: boolean = false;  
+  capitales: Pais[] = [];
 
-  ngOnInit(): void {
+  constructor(private PaisService: PaisService) { }
+
+
+
+  buscar(termino:string){
+    this.hayError = false;
+    this.termino = termino; //le asigno termino a this.termino porque termino es el evento que recibo del output
+    console.log(this.termino);
+    this.PaisService.buscarCapital(this.termino).subscribe((arr) =>{
+      
+      console.log(arr);
+      this.capitales = arr; //le paso el resultado de la busqueda directamente que es un array
+      
+    }, (err) => {
+          console.log('Error!');
+          console.info(err);
+          this.hayError = true;
+          this.capitales=[];
+    });
+    //Para que se ejecute un observable tiene que tener como mínimo un suscribe, sino no se ejecuta.
   }
+
+  sugerencias(termino:string){
+    this.hayError = false;
+    
+  }
+
+  teclaPresionada(){
+    console.log('teclapresionada');
+  }
+
+ 
 
 }

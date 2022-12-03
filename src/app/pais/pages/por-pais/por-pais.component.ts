@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { PaisService } from '../../services/pais.service';
 import { Pais } from '../../interfaces/pais.interface';
 
@@ -9,15 +9,18 @@ import { Pais } from '../../interfaces/pais.interface';
   ]
 })
 export class PorPaisComponent {
+  
+  
 
   termino:string = 'Honduras';
-  hayError: boolean = false;
+  hayError: boolean = false;  
   paises: Pais[] = [];
 
   constructor(private PaisService: PaisService) { }
 
-  buscar(){
+  buscar(termino:string){
     this.hayError = false;
+    this.termino = termino; //le asigno termino a this.termino porque termino es el evento que recibo del output
     console.log(this.termino);
     this.PaisService.buscarPais(this.termino).subscribe((arr) =>{
       
@@ -31,6 +34,11 @@ export class PorPaisComponent {
           this.paises=[];
     });
     //Para que se ejecute un observable tiene que tener como mínimo un suscribe, sino no se ejecuta.
+  }
+
+  sugerencias(termino:string){
+    this.hayError = false;
+    
   }
 
 }

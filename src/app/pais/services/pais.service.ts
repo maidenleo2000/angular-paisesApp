@@ -24,4 +24,16 @@ export class PaisService {
     return this.http.get<Pais[]>(url); //En el GET tambien va el tipado devuelto que es el mismo que el observable de arriba
   }
 
+  buscarCapital(termino:string): Observable<Pais[]>{
+
+    const urlcap = `${this.apiUrl}/capital/${termino}`
+    return this.http.get<Pais[]>(urlcap);
+  }
+
+  getPaisPorCodigo(id:string): Observable<Pais>{
+
+    const url = `${this.apiUrl}/alpha/${id}`
+    return this.http.get<Pais>(url);
+  }
+
 }

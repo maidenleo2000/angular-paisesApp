@@ -1,1 +1,32 @@
-<p>por-region works!</p>
+<h3>Buscar por región <small>{{regionActiva | titlecase}}</small></h3>
+<hr>
+
+<h5>Seleccione la región</h5>
+
+<div class="row">
+    <div class="col">
+        <!-- El [class] entre corchete significa que se esta evaluando la clase con una condicion para saber que aplicar -->
+        <!-- [class.btn-primary] = "region === regionActiva" Forma de consicionar CSS-->
+        <!-- [ngClass]="{
+            'btn-primary': regionActiva === region,
+            'btn-outline-primary': regionActiva !== region
+        }" Otra forma de condicional para CSS. Evalua las 2 cosas, los elementos que cumplen y los que no cumplen la condicion-->
+        <!-- [class]="(region === regionActiva) ? 'btn btn-primary me-2' : 'btn btn-outline-primary me-2'" 
+        Esta condicion en una sola linea evalua con un ternario si se cumple la condicion aplica la clase que viene despues del ? y sino aplica la clase que viene despues de :-->
+        <button  
+        *ngFor="let region of regionesv3"
+        [class]="getClaseCSS(region)"
+        (click)="activarRegion(region)"
+        (click)="buscarV3(region)">
+            {{region | titlecase}}
+        </button>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col">
+        <app-pais-tabla [paises]="paises"></app-pais-tabla>
+        <!-- aca es donde le paso los datos al input, sino no funciona. Con el input lo que hago es tomar datos de otro lugar, un pasa-mano. Los datos se procesan en por-pais.component.ts y se envia ACA al input de app-pais.tabla. Se usan corchetes para pasar datos, y parentesis para escuchar datos-->
+    </div>
+</div>
